@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Maazin Ansari - "Maazin Ansari"</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Maazin Ansari </a></h1>
+                <nav><ul>
+                    <li><a href="/category/12.html">12</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/test-import.html">"Test Import"</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-12-30T00:00:00-06:00">
+                Published: Sat 30 December 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/maazin-ansari.html">"Maazin Ansari"</a>
+        </address>
+<p>In <a href="/category/12.html">12</a>.</p>
+
+</footer><!-- /.post-info --><h1>Parameter Estimation</h1>
+<p><span class="math display">[\begin{align*}
+\frac{\partial}{\partial \hat{\beta_0}}RSS(\hat{\beta_0},\hat{\beta_1})
+&amp; = \frac{\partial}{\partial \hat{\beta_0}}
+\sum_{i=1}^n[y_i-(\hat{\beta_0}+\hat{\beta_1}x_i)]^2=0 \\</p>
+<p>&amp; = \sum_{i=1}^n2(y_i - \hat{\beta_0} - \hat{\beta_1}x_i)(-1) \\</p>
+<p>-2\sum_{i=1}^ny_i-\hat{\beta_0} -\hat{\beta_1}x_i &amp; = 0 \\</p>
+<p>\sum_{i=1}^ny_i -n\hat{\beta_0}  -\hat{\beta_1}\sum_{i=1}^nx_i&amp; = 0 \\</p>
+<p>n\hat{\beta_0} &amp; = \sum_{i=1}^ny_i-\hat{\beta_1}\sum_{i=1}^nx_i \\</p>
+<p>\hat{\beta_0} &amp; = \bar{y} - \hat{\beta_1}\bar{x}
+\end{align*}]</span>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<pre class="r"><code>summary(cars)</code></pre>
+<pre><code>##      speed           dist       </p>
+<h2>Min.   : 4.0   Min.   :  2.00</h2>
+<h2>1st Qu.:12.0   1st Qu.: 26.00</h2>
+<h2>Median :15.0   Median : 36.00</h2>
+<h2>Mean   :15.4   Mean   : 42.98</h2>
+<h2>3rd Qu.:19.0   3rd Qu.: 56.00</h2>
+<h2>Max.   :25.0   Max.   :120.00</code></pre></h2>
+<p></div>
+<div id="including-plots" class="section level2">
+<h2>Including Plots</h2>
+<p>You can also embed plots, for example:</p>
+<p><img src="testpage_files/figure-html/pressure-1.png" width="672" /></p>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+</div>
+<div id="latex" class="section level2">
+<h2>LaTeX</h2>
+<p>Minimize: <span class="math inline">(RSS(\beta_0,\beta_1)=\sum_{i=1}^n[y_i-(\beta_0+\beta_1x_i)]^2)</span></p>
+<p><span class="math inline">(\hat{\beta}<em i="1">0)</span>:</p>
+<p>This is a line of text</p>
+$$
+<span class="math display">[\begin{align*}
+\frac{\partial}{\partial \hat{\beta_0}}RSS(\hat{\beta_0},\hat{\beta_1})
+&amp; = \frac{\partial}{\partial \hat{\beta_0}}
+\sum</em>^n[y_i-(\hat{\beta_0}+\hat{\beta_1}x_i)]^2=0 \\</p>
+<p>&amp; = \sum_{i=1}^n2(y_i - \hat{\beta_0} - \hat{\beta_1}x_i)(-1) \\</p>
+<p>-2\sum_{i=1}^ny_i-\hat{\beta_0} -\hat{\beta_1}x_i &amp; = 0 \\</p>
+<p>\sum_{i=1}^ny_i -n\hat{\beta_0}  -\hat{\beta_1}\sum_{i=1}^nx_i&amp; = 0 \\</p>
+<p>n\hat{\beta_0} &amp; = \sum_{i=1}^ny_i-\hat{\beta_1}\sum_{i=1}^nx_i \\</p>
+<p>\hat{\beta_0} &amp; = \bar{y} - \hat{\beta_1}\bar{x}
+\end{align*}]</span>
+<p>$$</p>
+<p>Another block:</p>
+<p>Y_i = _0 + _1 x_i + e_i</p>
+<p>Here the <code>$$</code> don’t show up.</p>
+<p>\begin e_i \end</p>
+</div></p>
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/hundred-year-flood.html" rel="bookmark"
+                           title="Permalink to "Hundred Year Flood"">"Hundred Year Flood"</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-25T00:00:00-06:00">
+                Published: Mon 25 December 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/maazin-ansari.html">"Maazin Ansari"</a>
+        </address>
+<p>In <a href="/category/12.html">12</a>.</p>
+
+</footer><!-- /.post-info -->                <h1>Parameter Estimation</h1>
+<p>From Problem 6 in </p>
+<p>Ross, Sheldon M. “Chapter 7: Parameter Estimation.” <em>Introduction to Probability and Statistics for Engineers and Scientists</em>, 5th ed., Elsevier, AP, 2014, pp. 285–286.</p>
+<p>River floods are often measured by their discharges (ft^3/s)
+The value $v$ is said to be the value …</p>
+                <a class="readmore" href="/hundred-year-flood.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
