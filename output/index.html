@@ -3,7 +3,8 @@
 <head>
         <meta charset="utf-8" />
         <title>Maazin Ansari</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="./theme/css/main.css" />
+        <link href="http://maazinansari.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Maazin Ansari Atom Feed" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,135 +13,336 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Maazin Ansari </a></h1>
+                <h1><a href="./">Maazin Ansari </a></h1>
                 <nav><ul>
-                    <li><a href="/category/12.html">12</a></li>
+                    <li><a href="./category/posts.html">posts</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/test-import.html">"Test Import"</a></h1>
+                    <h1 class="entry-title"><a href="./100-year-flood-part-1.html">"100-Year Flood Part 1"</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2017-12-30T00:00:00-06:00">
-                Published: Sat 30 December 2017
+        <abbr class="published" title="2017-01-07T00:00:00-06:00">
+                Published: Sat 07 January 2017
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/maazin-ansari.html">"Maazin Ansari"</a>
+                By                         <a class="url fn" href="./author/maazin-ansari.html">"Maazin Ansari"</a>
         </address>
-<p>In <a href="/category/12.html">12</a>.</p>
+<p>In <a href="./category/posts.html">posts</a>.</p>
 
-</footer><!-- /.post-info --><h1>Parameter Estimation</h1>
-<p><span class="math display">[\begin{align*}
-\frac{\partial}{\partial \hat{\beta_0}}RSS(\hat{\beta_0},\hat{\beta_1})
-&amp; = \frac{\partial}{\partial \hat{\beta_0}}
-\sum_{i=1}^n[y_i-(\hat{\beta_0}+\hat{\beta_1}x_i)]^2=0 \\</p>
-<p>&amp; = \sum_{i=1}^n2(y_i - \hat{\beta_0} - \hat{\beta_1}x_i)(-1) \\</p>
-<p>-2\sum_{i=1}^ny_i-\hat{\beta_0} -\hat{\beta_1}x_i &amp; = 0 \\</p>
-<p>\sum_{i=1}^ny_i -n\hat{\beta_0}  -\hat{\beta_1}\sum_{i=1}^nx_i&amp; = 0 \\</p>
-<p>n\hat{\beta_0} &amp; = \sum_{i=1}^ny_i-\hat{\beta_1}\sum_{i=1}^nx_i \\</p>
-<p>\hat{\beta_0} &amp; = \bar{y} - \hat{\beta_1}\bar{x}
-\end{align*}]</span>
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)</code></pre>
-<pre><code>##      speed           dist       </p>
-<h2>Min.   : 4.0   Min.   :  2.00</h2>
-<h2>1st Qu.:12.0   1st Qu.: 26.00</h2>
-<h2>Median :15.0   Median : 36.00</h2>
-<h2>Mean   :15.4   Mean   : 42.98</h2>
-<h2>3rd Qu.:19.0   3rd Qu.: 56.00</h2>
-<h2>Max.   :25.0   Max.   :120.00</code></pre></h2>
-<p></div>
-<div id="including-plots" class="section level2">
-<h2>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="testpage_files/figure-html/pressure-1.png" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
-</div>
-<div id="latex" class="section level2">
-<h2>LaTeX</h2>
-<p>Minimize: <span class="math inline">(RSS(\beta_0,\beta_1)=\sum_{i=1}^n[y_i-(\beta_0+\beta_1x_i)]^2)</span></p>
-<p><span class="math inline">(\hat{\beta}<em i="1">0)</span>:</p>
-<p>This is a line of text</p>
-$$
-<span class="math display">[\begin{align*}
-\frac{\partial}{\partial \hat{\beta_0}}RSS(\hat{\beta_0},\hat{\beta_1})
-&amp; = \frac{\partial}{\partial \hat{\beta_0}}
-\sum</em>^n[y_i-(\hat{\beta_0}+\hat{\beta_1}x_i)]^2=0 \\</p>
-<p>&amp; = \sum_{i=1}^n2(y_i - \hat{\beta_0} - \hat{\beta_1}x_i)(-1) \\</p>
-<p>-2\sum_{i=1}^ny_i-\hat{\beta_0} -\hat{\beta_1}x_i &amp; = 0 \\</p>
-<p>\sum_{i=1}^ny_i -n\hat{\beta_0}  -\hat{\beta_1}\sum_{i=1}^nx_i&amp; = 0 \\</p>
-<p>n\hat{\beta_0} &amp; = \sum_{i=1}^ny_i-\hat{\beta_1}\sum_{i=1}^nx_i \\</p>
-<p>\hat{\beta_0} &amp; = \bar{y} - \hat{\beta_1}\bar{x}
-\end{align*}]</span>
-<p>$$</p>
-<p>Another block:</p>
-<p>Y_i = _0 + _1 x_i + e_i</p>
-<p>Here the <code>$$</code> don’t show up.</p>
-<p>\begin e_i \end</p>
-</div></p>
-</div>
+</footer><!-- /.post-info --><p>In this two-part post, I play around with some data in R to show the statistics behind the 100-year flood. This is mostly me following along with posts from other blogs to get familiar with R, RMarkdown, and blogging. </p>
+<p>In this first part, I'll show how the hundred year flood is calculated from data. In Part 2, I'll go into more detail on the 100-year flood, do some simulations, and verify our solution in Part 1.</p>
+<h1>Parameter Estimation</h1>
+<p>The data I use here comes from Problem 6 in </p>
+<p>Ross, Sheldon M. “Chapter 7: Parameter Estimation.” <em>Introduction to Probability and Statistics for Engineers and Scientists</em>, 5th ed., Elsevier, AP, 2014, pp. 285–286.</p>
+<blockquote>
+<p>River floods are often measured by their discharges (<span class="math">\(\text{ft}^3/\text{s}\)</span>)
+The value <span class="math">\(v\)</span> is said to be the value of a 100-year flood if <span class="math">\(P(D \geq v) = 0.01\)</span>
+where <span class="math">\(D\)</span> is the discharge of the largest flood in a randomly selected year.  </p>
+<p>The table below gives the flood discharges of the largest floods of the Blackstone River in Woonsocket, RI, in each year from 1929 to 1965.  </p>
+<p>Assuming that these discharges follow a log-normal distribution, estimate the value of a 100-year flood.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">year</th>
+<th align="center">discharge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1929</td>
+<td align="center">4750</td>
+</tr>
+<tr>
+<td align="center">1930</td>
+<td align="center">1970</td>
+</tr>
+<tr>
+<td align="center">1931</td>
+<td align="center">8220</td>
+</tr>
+<tr>
+<td align="center">1932</td>
+<td align="center">4530</td>
+</tr>
+<tr>
+<td align="center">1933</td>
+<td align="center">5780</td>
+</tr>
+<tr>
+<td align="center">1934</td>
+<td align="center">6560</td>
+</tr>
+<tr>
+<td align="center">1935</td>
+<td align="center">7500</td>
+</tr>
+<tr>
+<td align="center">1936</td>
+<td align="center">15000</td>
+</tr>
+<tr>
+<td align="center">1937</td>
+<td align="center">6340</td>
+</tr>
+<tr>
+<td align="center">1938</td>
+<td align="center">15100</td>
+</tr>
+<tr>
+<td align="center">1939</td>
+<td align="center">3840</td>
+</tr>
+<tr>
+<td align="center">1940</td>
+<td align="center">5860</td>
+</tr>
+<tr>
+<td align="center">1941</td>
+<td align="center">4480</td>
+</tr>
+<tr>
+<td align="center">1942</td>
+<td align="center">5330</td>
+</tr>
+<tr>
+<td align="center">1943</td>
+<td align="center">5310</td>
+</tr>
+<tr>
+<td align="center">1944</td>
+<td align="center">3830</td>
+</tr>
+<tr>
+<td align="center">1945</td>
+<td align="center">3410</td>
+</tr>
+<tr>
+<td align="center">1946</td>
+<td align="center">3830</td>
+</tr>
+<tr>
+<td align="center">1947</td>
+<td align="center">3150</td>
+</tr>
+<tr>
+<td align="center">1948</td>
+<td align="center">5810</td>
+</tr>
+<tr>
+<td align="center">1949</td>
+<td align="center">2030</td>
+</tr>
+<tr>
+<td align="center">1950</td>
+<td align="center">3620</td>
+</tr>
+<tr>
+<td align="center">1951</td>
+<td align="center">4920</td>
+</tr>
+<tr>
+<td align="center">1952</td>
+<td align="center">4090</td>
+</tr>
+<tr>
+<td align="center">1953</td>
+<td align="center">5570</td>
+</tr>
+<tr>
+<td align="center">1954</td>
+<td align="center">9400</td>
+</tr>
+<tr>
+<td align="center">1955</td>
+<td align="center">32900</td>
+</tr>
+<tr>
+<td align="center">1956</td>
+<td align="center">8710</td>
+</tr>
+<tr>
+<td align="center">1957</td>
+<td align="center">3850</td>
+</tr>
+<tr>
+<td align="center">1958</td>
+<td align="center">4970</td>
+</tr>
+<tr>
+<td align="center">1959</td>
+<td align="center">5398</td>
+</tr>
+<tr>
+<td align="center">1960</td>
+<td align="center">4780</td>
+</tr>
+<tr>
+<td align="center">1961</td>
+<td align="center">4020</td>
+</tr>
+<tr>
+<td align="center">1962</td>
+<td align="center">5790</td>
+</tr>
+<tr>
+<td align="center">1963</td>
+<td align="center">4510</td>
+</tr>
+<tr>
+<td align="center">1964</td>
+<td align="center">5520</td>
+</tr>
+<tr>
+<td align="center">1965</td>
+<td align="center">5300</td>
+</tr>
+</tbody>
+</table>
+<p>The plot below displays the above table as a graph. The average discharge of the largest flood during this period is around 6,000 <span class="math">\(\text{ft}^3/\text{s}\)</span>. There was an unusually large flood in 1955, with well over 30,000 <span class="math">\(\text{ft}^3/\text{s}\)</span> of discharge.</p>
+<div class="highlight"><pre><span></span>plot<span class="p">(</span>floods<span class="p">,</span> type <span class="o">=</span> <span class="s">&quot;h&quot;</span><span class="p">,</span> lwd <span class="o">=</span> <span class="m">2</span><span class="p">,</span>
+     main <span class="o">=</span> <span class="s">&quot;Largest floods of the Blackstone River&quot;</span><span class="p">)</span>
+</pre></div>
 
-<script>
 
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+<p><img src="/static/HundredYrFlood1/time-plot-1.png" title="center" alt="center" style="display: block; margin: auto;" /></p>
+<h2>Distribution of discharges</h2>
+<p>The problem tells us to assume discharge follows a log-normal distribution. So, <span class="math">\(D \sim \text{Lognormal}(\mu, \sigma)\)</span>. Two notable properties of the log-normal distribution are that it takes positive values and it is positively skewed. Looking at the histogram of discharges, we can see both are true: discharges cannot be less than 0 and high-discharge floods are much less frequent than low-discharge floods.</p>
+<div class="highlight"><pre><span></span>hist<span class="p">(</span>floods<span class="p">[[</span><span class="s">&quot;discharge&quot;</span><span class="p">]],</span> nclass <span class="o">=</span> <span class="m">25</span><span class="p">,</span> freq <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> xlab <span class="o">=</span> <span class="s">&quot;discharge&quot;</span><span class="p">,</span> main <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img src="/static/HundredYrFlood1/hist-1-1.png" title="center" alt="center" style="display: block; margin: auto;" /></p>
+<p>The next step is to determine which log-normal distribution this data comes from. In other words, what are the parameters for this distribution.</p>
+<h2>Log-normal distribution</h2>
+<div class="math">$$f(x) = \frac{1}{x\sigma\sqrt{2π}} \exp\Big(-\frac{(\ln x - \mu)^2}{2 \sigma^2}\Big)$$</div>
+<p>The log-normal distribution is similar to the normal distribution in that it has two parameters, <span class="math">\(\mu\)</span> and <span class="math">\(\sigma\)</span>. We need to estimate both.</p>
+<p>The following sections show how to estimate the parameters for the log-normal distribution, using two different methods.</p>
+<h2>Maximum Likelihood Estimates</h2>
+<div class="math">$$
+\hat{\mu}=\frac{\sum \ln x_i}{n} = \overline{\ln x_i}
+$$</div>
+<div class="highlight"><pre><span></span>mu_hat <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span><span class="kp">log</span><span class="p">(</span>floods<span class="p">[[</span><span class="s">&quot;discharge&quot;</span><span class="p">]]))</span>
+</pre></div>
+
+
+<div class="math">$$
+\hat{\sigma}^2 = \frac{\sum_i^n (\ln x_i - \hat{\mu})^2}{n}
+$$</div>
+<div class="highlight"><pre><span></span>sigma_hat <span class="o">=</span> <span class="p">(</span><span class="kp">log</span><span class="p">(</span>floods<span class="p">[[</span><span class="s">&quot;discharge&quot;</span><span class="p">]])</span> <span class="o">-</span> mu_hat<span class="p">)</span><span class="o">^</span><span class="m">2</span> <span class="o">%&gt;%</span> mean <span class="o">%&gt;%</span> <span class="kp">sqrt</span>
+
+<span class="c1"># Adjusted MLE ----</span>
+<span class="kn">source</span><span class="p">(</span><span class="s">&quot;finney.R&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Method of Moments Estimates</h2>
+<div class="math">$$
+\tilde{\sigma}^2= \ln{\sum_{i=1}^nx_i^2} - 2\ln{\sum_{i=1}^nx_i}+\ln(n)
+$$</div>
+<div class="highlight"><pre><span></span>sigma_tilde <span class="o">=</span> <span class="p">((</span>floods<span class="p">[[</span><span class="s">&quot;discharge&quot;</span><span class="p">]]</span><span class="o">^</span><span class="m">2</span> <span class="o">%&gt;%</span> sum <span class="o">%&gt;%</span> <span class="kp">log</span><span class="p">)</span> <span class="o">-</span>
+    <span class="m">2</span> <span class="o">*</span> <span class="p">(</span>floods<span class="p">[[</span><span class="s">&quot;discharge&quot;</span><span class="p">]]</span> <span class="o">%&gt;%</span> sum <span class="o">%&gt;%</span> <span class="kp">log</span><span class="p">)</span> <span class="o">+</span>
+    <span class="kp">log</span><span class="p">(</span><span class="kp">nrow</span><span class="p">(</span>floods<span class="p">)))</span> <span class="o">%&gt;%</span>
+    <span class="kp">sqrt</span>
+</pre></div>
+
+
+<div class="math">$$
+\tilde{\mu}= {\ln \sum_{i=1}^n x_i}-\ln(n)-\frac{\tilde{\sigma}^2}{2}
+$$</div>
+<div class="highlight"><pre><span></span>mu_tilde <span class="o">=</span> <span class="p">(</span>floods<span class="p">[[</span><span class="s">&quot;discharge&quot;</span><span class="p">]]</span> <span class="o">%&gt;%</span> sum <span class="o">%&gt;%</span> <span class="kp">log</span><span class="p">)</span> <span class="o">-</span>
+            <span class="kp">log</span><span class="p">(</span><span class="kp">nrow</span><span class="p">(</span>floods<span class="p">))</span> <span class="o">-</span> 
+            <span class="p">(</span>sigma_tilde<span class="p">)</span><span class="o">^</span><span class="m">2</span> <span class="o">/</span> <span class="m">2</span>
+
+<span class="c1"># P(D &gt;= v) = 0.01</span>
+</pre></div>
+
+
+<h2>Estimated distributions</h2>
+<p>Since we now have parameters, we have a distribution. We can plot the probability density functions with the histogram to see how well it fits.</p>
+<div class="highlight"><pre><span></span>hist<span class="p">(</span>floods<span class="p">[[</span><span class="s">&quot;discharge&quot;</span><span class="p">]],</span> nclass <span class="o">=</span> <span class="m">25</span><span class="p">,</span> freq <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> xlab <span class="o">=</span> <span class="s">&quot;discharge&quot;</span><span class="p">,</span> main <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+lnorm_plot_v<span class="p">(</span>mu <span class="o">=</span> mu_hat<span class="p">,</span> sigma <span class="o">=</span> sigma_hat<span class="p">,</span> col <span class="o">=</span> <span class="s">&quot;red&quot;</span><span class="p">,</span> add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+lnorm_plot_v<span class="p">(</span>mu <span class="o">=</span> mu_tilde<span class="p">,</span> sigma <span class="o">=</span> sigma_tilde<span class="p">,</span> col <span class="o">=</span> <span class="s">&quot;blue&quot;</span><span class="p">,</span> add <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="center" src="/static/HundredYrFlood1/hist-2-1.png"></p>
+<p>Now we can determine the value <span class="math">\(v\)</span> for which <span class="math">\(P(D \geq v) = 0.01\)</span></p>
+<p><span class="math">\(P(D \geq v) = 0.01\)</span> and <span class="math">\(P(D &lt;  v) = 0.99\)</span></p>
+<div class="highlight"><pre><span></span>v_mle <span class="o">=</span> qlnorm<span class="p">(</span>p <span class="o">=</span> <span class="m">0.99</span><span class="p">,</span> meanlog <span class="o">=</span> mu_hat<span class="p">,</span> sdlog <span class="o">=</span> sigma_hat<span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>v_mom <span class="o">=</span> qlnorm<span class="p">(</span>p <span class="o">=</span> <span class="m">0.99</span><span class="p">,</span> meanlog <span class="o">=</span> mu_tilde<span class="p">,</span> sdlog <span class="o">=</span> sigma_tilde<span class="p">)</span>
+
+<span class="c1"># Plot functions ----</span>
+</pre></div>
+
+
+<p>So, the value of the hundred year flood is 17753 <span class="math">\(\text{ft}^3/\text{s}\)</span> according to maximum likelihood estimation and 26033 <span class="math">\(\text{ft}^3/\text{s}\)</span> accordint to method of moments estimation. From the data, we see that in only one year, 1955, was the value exceeded.</p>
+<p><img src="/static/HundredYrFlood1/lnorm-plots-1.png" title="center" alt="center" style="display: block; margin: auto;" /></p>
+<h1>References</h1>
+<p>Ginos, Brenda Faith, "Parameter Estimation for the Lognormal Distribution" (2009). <em>All Theses and Dissertations</em>. 1928. http://scholarsarchive.byu.edu/etd/1928</p>
+<p>Ross, Sheldon M. “Chapter 7: Parameter Estimation.” <em>Introduction to Probability and Statistics for Engineers and Scientists</em>, 5th ed., Elsevier, AP, 2014, pp. 285–286.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
 </script>                </article>
             </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/hundred-year-flood.html" rel="bookmark"
-                           title="Permalink to "Hundred Year Flood"">"Hundred Year Flood"</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-12-25T00:00:00-06:00">
-                Published: Mon 25 December 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/maazin-ansari.html">"Maazin Ansari"</a>
-        </address>
-<p>In <a href="/category/12.html">12</a>.</p>
-
-</footer><!-- /.post-info -->                <h1>Parameter Estimation</h1>
-<p>From Problem 6 in </p>
-<p>Ross, Sheldon M. “Chapter 7: Parameter Estimation.” <em>Introduction to Probability and Statistics for Engineers and Scientists</em>, 5th ed., Elsevier, AP, 2014, pp. 285–286.</p>
-<p>River floods are often measured by their discharges (ft^3/s)
-The value $v$ is said to be the value …</p>
-                <a class="readmore" href="/hundred-year-flood.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>
@@ -148,15 +350,15 @@ The value $v$ is said to be the value …</p>
                             <li><a href="http://getpelican.com/">Pelican</a></li>
                             <li><a href="http://python.org/">Python.org</a></li>
                             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
                         </ul>
                 </div><!-- /.blogroll -->
                 <div class="social">
                         <h2>social</h2>
                         <ul>
+                            <li><a href="http://maazinansari.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
+                            <li><a href="https://www.linkedin.com/in/maazin-ansari/">LinkedIn</a></li>
+                            <li><a href="https://github.com/maazinansari/">GitHub</a></li>
                         </ul>
                 </div><!-- /.social -->
         </section><!-- /#extras -->

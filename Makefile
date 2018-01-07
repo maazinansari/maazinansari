@@ -15,7 +15,7 @@ FTP_TARGET_DIR=/
 SSH_HOST=maazinansari.com
 SSH_PORT=22
 SSH_USER=maazin
-SSH_TARGET_DIR=/var/www
+SSH_TARGET_DIR=/home/maazin/blog
 
 S3_BUCKET=my_s3_bucket
 

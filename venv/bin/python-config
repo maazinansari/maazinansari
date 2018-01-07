@@ -1,4 +1,4 @@
-#!/Users/maazin/blog/venv/bin/python
+#!/Users/maazin/maazinansari/venv/bin/python
 
 import sys
 import getopt
