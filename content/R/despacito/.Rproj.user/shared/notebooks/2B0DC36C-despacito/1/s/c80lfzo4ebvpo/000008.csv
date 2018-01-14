@@ -1,5 +1,0 @@
-"0","library(knitr)"
-"0","opts_chunk$set(fig.align = ""center"")"
-"0","opts_knit$set(root.dir = dirname(getwd()))"
-"0","read_chunk(""despacito.R"")"
-"0","source(""despacito.R"")"
