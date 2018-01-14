@@ -1,7 +1,7 @@
 ---
 title: One Year of Despacito
 author: Maazin Ansari
-date: 2018-01-14
+date: 2018-01-13
 slug: despacito-1
 lang: en
 category: Statistics
@@ -172,9 +172,9 @@ summary(view_mod)[["coefficients"]]
 ## wdaySunday                         1.966222e-05
 ```
 
-The summary shows the coefficients of the model. The `(Intercept)` is the baseline to which all other coefficients are compared. Here the baseline is January and Monday. So, the estimated coefficient for February can be interpreted as "385064.4 more views in February than in January."
+The summary shows the coefficients of the model. The `(Intercept)` is the baseline to which all other coefficients are compared. Here the baseline is January and Monday. So, the estimated coefficient for February can be interpreted as "504094.8 more views in February than in January."
 
-*Sidenote: My interpretation here might be wrong. I tried verifying the values with other methods, and couldn't get replicate the results. Also, I would've liked for the summary to reflect the form of the main effects model above, (i.e. without the intercept). Using `- 1` gets rid of the intercept and includes January, but not Monday. If anyone has any suggestions for me, please feel free to reach out.*
+*Sidenote: My interpretation here might be wrong. I tried verifying the values with other methods, and couldn't replicate the results. Also, I would've liked for the summary to reflect the form of the main effects model above, (i.e. without the intercept). Using `- 1` gets rid of the intercept and includes January, but not Monday. If anyone has any suggestions for me, please feel free to reach out.*
 
 
 
