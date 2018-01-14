@@ -4,3 +4,7 @@ plugins
 output
 __pycache__
 
+# RStudio
+.Rhistory
+.Rproj
+.RData

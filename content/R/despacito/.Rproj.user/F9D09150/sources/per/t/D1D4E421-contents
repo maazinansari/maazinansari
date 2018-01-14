@@ -7,18 +7,35 @@
 # run this script from your base content directory
 
 library(knitr)
+setwd("~/maazinansari/content/")
 KnitPost <- function(input, outfile, figsfolder, cachefolder, base.url = "/") {
     opts_knit$set(base.url = base.url)
     fig.path <- paste0(figsfolder, sub(".Rmd$", "", basename(input)), "/")
     cache.path <- file.path(cachefolder, sub(".Rmd$", "", basename(input)), "/")
     
-    opts_chunk$set(fig.path = fig.path, cache.path = cache.path, fig.cap = "center")
+    opts_chunk$set(fig.path = fig.path)
+    opts_chunk$set(cache.path = cache.path)
+    opts_chunk$set(fig.cap = "center")
     render_markdown()
     knit(input, outfile, envir = parent.frame())
 }
 
+# Copy images to /content/static/...
+# One folder per rmd -> there will be copies of images if more than 1 rmd in infolder
+copy_img = function(infolder, figsfolder, infile) {
+    if (dir.exists(paste0(infolder, "/", "img"))) {
+        imgfolder = paste0(figsfolder, sub(".Rmd$", "", basename(infile)), "/")
+        if (!dir.exists(imgfolder)) {dir.create(imgfolder)}
+        file.copy(from = paste0(infolder, "/", "img"),
+                  to = imgfolder,
+                  overwrite = TRUE,
+                  recursive = TRUE)
+    }
+    print(imgfolder)
+}
+
 knit_folder <- function(infolder, outfolder = "posts/", figsfolder = "static/", cachefolder =  "_caches", force = F) {
-    for (infile in list.files(infolder, pattern = "*.Rmd", full.names = TRUE, recursive = TRUE)) {
+    for (infile in list.files(infolder, pattern = "*.Rmd", full.names = TRUE, recursive = FALSE)) {
         
         print(infile)
         outfile = paste0(outfolder, "/", sub(".Rmd$", ".md", basename(infile)))
@@ -27,8 +44,7 @@ knit_folder <- function(infolder, outfolder = "posts/", figsfolder = "static/", 
         # knit only if the input file is the last one modified
         if (!file.exists(outfile) | file.info(infile)$mtime > file.info(outfile)$mtime) {
             KnitPost(infile, outfile, figsfolder, cachefolder)
+            #copy_img(infolder, figsfolder, infile)
         }
     }
 }
-
-knit_folder("R/")

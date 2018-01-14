@@ -1,0 +1,6 @@
+http://varianceexplained.org/r/start-blog/
+http://michaeltoth.me/how-to-write-pelican-blog-posts-using-rmarkdown-knitr-20.html
+http://docs.getpelican.com/en/stable/content.html
+https://www.zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/
+https://yihui.name/knitr/options/
+https://rjweiss.github.io/articles/2014_08_25/testing-rmarkdown-integration/

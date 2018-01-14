@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1515303501820.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "127|85|147|0|\n",
+    "hash" : "794627736",
+    "id" : "77B83A14",
+    "lastKnownWriteTime" : 1515624042,
+    "last_content_update" : 1515624042427,
+    "path" : "~/Dropbox/Sandbox/R/YouTube/despacito.R",
+    "project_path" : "despacito.R",
+    "properties" : {
+        "cursorPosition" : "11,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

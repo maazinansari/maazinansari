@@ -1,7 +1,7 @@
 ---
 title: 100-Year Flood Part 1
 author: Maazin Ansari
-date: 2018-01-11
+date: 2018-01-12
 slug: 100-yr-flood-1
 lang: en
 category: Statistics
@@ -10,7 +10,21 @@ summary: A demonstration of parameter estimation of a lognormal distribution
 output: html_document
 ---
 
+```{r options, echo = FALSE, message = FALSE, warning = FALSE}
+library(knitr)
+library(kableExtra)
+library(magrittr)
+inline_hook <- function(x) {
+  if (is.numeric(x)) {
+    format(x, digits = 5)
+  } else x
+}
 
+opts_chunk$set(cache = FALSE)
+knit_hooks$set(inline = inline_hook)
+read_chunk("HundredYrFlood.R")
+source("HundredYrFlood.R")
+```
 
 In this two-part post, I play around with some data in R to show the statistics behind parameter estimation and the 100-year flood. This is mostly me following along with posts from other blogs to get familiar with R, RMarkdown, and blogging. 
 
@@ -30,67 +44,26 @@ where $D$ is the discharge of the largest flood in a randomly selected year.
 
 > Assuming that these discharges follow a log-normal distribution, estimate the value of a 100-year flood.
 
-
-| year | discharge |
-|:----:|:---------:|
-| 1929 |   4750    |
-| 1930 |   1970    |
-| 1931 |   8220    |
-| 1932 |   4530    |
-| 1933 |   5780    |
-| 1934 |   6560    |
-| 1935 |   7500    |
-| 1936 |   15000   |
-| 1937 |   6340    |
-| 1938 |   15100   |
-| 1939 |   3840    |
-| 1940 |   5860    |
-| 1941 |   4480    |
-| 1942 |   5330    |
-| 1943 |   5310    |
-| 1944 |   3830    |
-| 1945 |   3410    |
-| 1946 |   3830    |
-| 1947 |   3150    |
-| 1948 |   5810    |
-| 1949 |   2030    |
-| 1950 |   3620    |
-| 1951 |   4920    |
-| 1952 |   4090    |
-| 1953 |   5570    |
-| 1954 |   9400    |
-| 1955 |   32900   |
-| 1956 |   8710    |
-| 1957 |   3850    |
-| 1958 |   4970    |
-| 1959 |   5398    |
-| 1960 |   4780    |
-| 1961 |   4020    |
-| 1962 |   5790    |
-| 1963 |   4510    |
-| 1964 |   5520    |
-| 1965 |   5300    |
+```{r flood-table, fig.width = 0.5, echo = FALSE, message = FALSE, warning = FALSE}
+floods = read.csv("HundredYrFlood.csv")
+kable(floods, row.names = FALSE, escape = FALSE, align = "c") %>%
+  kable_styling(bootstrap_options = "striped", full_width = FALSE)
+```
 
 The plot below displays the above table as a graph. The average discharge of the largest flood during this period is around 6,000 $\text{ft}^3/\text{s}$. There was an unusually large flood in 1955, with well over 30,000 $\text{ft}^3/\text{s}$ of discharge.
 
-
-```r
+```{r time-plot-1, fig.align = "center"}
 plot(floods, type = "h", lwd = 2,
      main = "Largest floods of the Blackstone River")
 ```
-
-<img src="/static/HundredYrFlood1/time-plot-1-1.png" title="center" alt="center" style="display: block; margin: auto;" />
 
 ## Distribution of discharges
 
 The problem tells us to assume discharge follows a log-normal distribution. So, $D \sim \text{Lognormal}(\mu, \sigma)$. Two notable properties of the log-normal distribution are that it takes positive values and it is positively skewed. Looking at the histogram of discharges, we can see both are true: discharges cannot be less than 0 and high-discharge floods are much less frequent than low-discharge floods.
 
-
-```r
+```{r hist-1, fig.align = "center"}
 hist(floods[["discharge"]], nclass = 25, freq = TRUE, xlab = "discharge", main = "")
 ```
-
-<img src="/static/HundredYrFlood1/hist-1-1.png" title="center" alt="center" style="display: block; margin: auto;" />
 
 The next step is to determine which log-normal distribution this data comes from. In other words, what are the parameters for this distribution.
 
@@ -108,20 +81,14 @@ $$
 \hat{\mu}=\frac{\sum \ln x_i}{n} = \overline{\ln x_i}
 $$
 
-
-```r
-mu_hat = mean(log(floods[["discharge"]]))
+```{r, mu-hat}
 ```
 
 $$
 \hat{\sigma}^2 = \frac{\sum_i^n (\ln x_i - \hat{\mu})^2}{n}
 $$
 
-
-```r
-sigma_hat = (log(floods[["discharge"]]) - mu_hat)^2 %>% mean %>% sqrt
-
-# Method of Moments Estimators ----
+```{r, sigma-hat}
 ```
 
 ## Method of Moments Estimates
@@ -130,25 +97,14 @@ $$
 \tilde{\sigma}^2= \ln{\sum_{i=1}^nx_i^2} - 2\ln{\sum_{i=1}^nx_i}+\ln(n)
 $$
 
-
-```r
-sigma_tilde = ((floods[["discharge"]]^2 %>% sum %>% log) -
-    2 * (floods[["discharge"]] %>% sum %>% log) +
-    log(nrow(floods))) %>%
-    sqrt
+```{r, sigma-tilde}
 ```
 
 $$
 \tilde{\mu}= {\ln \sum_{i=1}^n x_i}-\ln(n)-\frac{\tilde{\sigma}^2}{2}
 $$
 
-
-```r
-mu_tilde = (floods[["discharge"]] %>% sum %>% log) -
-            log(nrow(floods)) - 
-            (sigma_tilde)^2 / 2
-
-# Serfling Robust Estimators ----
+```{r, mu-tilde}
 ```
 
 ## Serfling Robust Estimates and Finney Efficient Estimates
@@ -161,8 +117,7 @@ The serfling estimators
 
 Since we now have parameters, we have distributions. We can plot the four probability density functions with the histogram to see how well they fit with the data.
 
-
-```r
+```{r hist-2}
 hist(floods[["discharge"]], nclass = 25, freq = FALSE, xlab = "discharge", main = "")
 lnorm_plot_v(mu = mu_hat, sigma = sigma_hat, col = "red", add = TRUE)
 lnorm_plot_v(mu = mu_tilde, sigma = sigma_tilde, col = "blue", add = TRUE)
@@ -171,59 +126,45 @@ lnorm_plot_v(mu = mu_hat_finney, sigma = sigma_hat_finney, col = "purple", lty =
 legend("topright", legend = c("MLE", "MOM", "Serfling", "Finney"), lty = c(1,1,1,2), col = c("red", "blue", "darkorange", "purple"), bty = "n")
 ```
 
-![center](/static/HundredYrFlood1/hist-2-1.png)
-
 Note that the Finney efficient estimates are very similar to the maximum likelihood estimates. 
 
-
-|         |       Mu|     Sigma|
-|:--------|--------:|---------:|
-|MLE      | 8.594057| 0.5116531|
-|MOM      | 8.593508| 0.5118573|
-|Serfling | 8.505484| 0.7142709|
-|Finney   | 8.577885| 0.4281297|
+```{r, echo = FALSE}
+estimate_table = matrix(c(mu_hat, mu_hat_finney, mu_tilde, mu_hat_serf,
+                      sigma_hat, sigma_hat_finney, sigma_tilde, sigma_hat_serf), 4)
+dimnames(estimate_table) = list(c("MLE", "MOM", "Serfling", "Finney"), c("Mu", "Sigma"))
+kable(estimate_table)
+```
 
 Now we can determine the value $v$ for which $P(D \geq v) = 0.01$ or equivalently $P(D <  v) = 0.99$
 
-
-```r
-v_mle = qlnorm(p = 0.99, meanlog = mu_hat, sdlog = sigma_hat)
+```{r, v-mle}
 ```
 
-
-```r
-v_mom = qlnorm(p = 0.99, meanlog = mu_tilde, sdlog = sigma_tilde)
+```{r, v-mom}
 ```
 
-
-```r
-v_serf = qlnorm(p = 0.99, meanlog = mu_hat_serf, sdlog = sigma_tilde)
+```{r, v-serf}
 ```
 
-
-```r
-v_finney = qlnorm(p = 0.99, meanlog = mu_hat_finney, sdlog = sigma_hat_finney)
+```{r, v-finney}
 ```
 
-
-```r
+```{r}
 v_table = matrix(c(v_mle, v_mom, v_serf, v_finney), 4)
 dimnames(v_table) = list(c("MLE", "MOM", "Serfling", "Finney"), "v")
 kable(v_table)
 ```
 
-
-
-|         |        v|
-|:--------|--------:|
-|MLE      | 17753.54|
-|MOM      | 26033.18|
-|Serfling | 27987.91|
-|Finney   | 17752.23|
-
 From the data, we see that in only one year, 1955, was the value exceeded.
 
-<img src="/static/HundredYrFlood1/lnorm-plots-1.png" title="center" alt="center" style="display: block; margin: auto;" />
+```{r lnorm-plots, echo = FALSE, fig.align="center"}
+par(mfrow = c(1,2))
+time_plot_v(floods, v = c(v_mle, v_mom, v_serf, v_finney), col = c("red", "blue", "darkorange", "purple"), lwd = c(3,2,2,2))
+lnorm_plot_v(mu_hat, sigma_hat, v_mle, lwd = 2, "red")
+lnorm_plot_v(mu_hat, sigma_tilde, v_mom, "blue", add = TRUE)
+lnorm_plot_v(mu_hat_serf, sigma_hat_serf, v_serf, "darkorange", add = TRUE)
+lnorm_plot_v(mu_hat_finney, sigma_hat_finney, v_finney, "purple", add = TRUE)
+```
 
 # References
 

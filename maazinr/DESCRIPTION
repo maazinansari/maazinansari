@@ -1,0 +1,10 @@
+Package: maazinr
+Title: Things I Need For My Site
+Version: 0.0.0.9000
+Authors@R: person("Maazin", "Ansari", email = "maazinansari@gmail.com", role = c("aut", "cre"))
+Description: This package is for personal use. It contains scripts, templates, and data I might use for my site. Feel free to mess around with it.
+Depends: R (>= 3.4.2)
+License: None
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1.9000

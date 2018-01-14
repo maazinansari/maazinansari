@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1515643269506.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1777082814",
+    "id" : "D1D4E421",
+    "lastKnownWriteTime" : 1515692674,
+    "last_content_update" : 1515692674256,
+    "path" : "~/maazinansari/content/knitpages.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "12,74",
+        "scrollLine" : "9"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
