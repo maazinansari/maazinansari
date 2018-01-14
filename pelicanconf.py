@@ -40,8 +40,7 @@ DISPLAY_CATEGORIES_ON_MENU = False # manually added in MENUITEMS
 MENUITEMS = [
     ('Statistics', '/category/statistics.html'),
     ('Geography', '/category/geography.html'),
-    ('Archives', '/archives'),
-    ('Tags', '/tags'),
+    ('Archives', 'archives.html'),
     ('About', '/en/about'),
     ]
 
