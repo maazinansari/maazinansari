@@ -21,7 +21,7 @@ inline_hook <- function(x) {
 knitr::knit_hooks$set(inline = inline_hook)
 ```
 
-```{r get-prev-data, output = 'hide, echo = FALSE'}
+```{r get-prev-data, output = 'hide', echo = FALSE, warning = FALSE, message = FALSE}
 # Here I try to run HundredYrFlood1.Rmd so I can use the objects and variables in this .Rmd
 # I use one R script in both parts.
 source("HundredYrFlood.R")
@@ -85,13 +85,17 @@ Knowing the log-normal distribution, we can simulate 37 years of flooding to see
 
 ### Count simulation
 
-We can simulate the number of 100-year floods occuring in a 37-year period by simulating binomial and Poisson processes.
+We can simulate the number of 100-year floods occuring in a 37-year period by simulating binomial and Poisson processes 1000 times.
 
 ```{r}
+set.seed(2018)
+N = 1000
 # Binomial
 bFloods = rbinom(n = N, size = 37, prob = 0.01)
+b_table = table(bFloods)/N ; b_table
 # Poisson
 pFloods = rpois(n = N, lambda = 37*0.01)
+p_table = table(pFloods)/N ; p_table
 ```
 
 ### Log-normal simulation
@@ -105,20 +109,22 @@ N = 1000
 m = replicate(n = N, expr = rlnorm(n = 37, meanlog = mu_hat, sdlog = sigma_hat)) %>% as.matrix
 ```
 
-Now, let's count how many 100-year floods occur in the 1000 37-year periods.
+Now, let's count how many 100-year floods occured in the 1000 37-year periods. In other words, for each column (simulation), how many rows (years) exceed `r v_mle`? Then we'll make a table to see how frequent the counts are.
 
 ```{r}
-sim_counts = apply(X = m, MARGIN = 2, FUN = function(x) sum(x > v_mle))
-sim_table = table(sim_counts)/N
+sim_counts = apply(X = m, # apply to the matrix m
+                   MARGIN = 2, # for each column...
+                   FUN = function(x) sum(x > v_mle)) # ...count the number of years > v_mle
+sim_table = table(sim_counts)/N; sim_table
 ```
 
 The following graph compares the expected probabilities and the simulated probabilities. The red and blue bars show the expected and simulated counts, respectively. The yellow bars show the counts using simulated floods. 
 
 ```{r, echo = FALSE, warning = FALSE}
-df_binom = rbind(table(bFloods)/N,
+df_binom = rbind(b_table,
                  dbinom(0:max(bFloods), size = 37, prob = 0.01),
                  sim_table)
-df_pois = rbind(table(pFloods)/N,
+df_pois = rbind(p_table,
                 dpois(0:max(pFloods), lambda = 37*0.01),
                 sim_table)
 
@@ -146,16 +152,14 @@ barplot(df_pois,
 
 In a 37-year period, it's much more likely to have zero 100-year floods than to have one. Still, the probability of exactly one is high, about 26%.
 
-```{r}
-# Binomial
-p_1_binomial = dbinom(x = 1, size = 37, prob = 0.01)
-# Poisson
-p_1_poisson = dpois(x = 1, lambda = 37*0.01)
-```
+Method                     | Probability of exactly 1 100-year flood in 37 years
+---------------------------|-----------------------------------------------------
+Expected Binomial Counts   | `r dbinom(x = 1, size = 37, prob = 0.01)`
+Simulated Binomial Counts  | `r b_table[["1"]]`
+Expected Poisson  Counts   | `r dpois(x = 1, lambda = 37*0.01)`
+Simulated Poisson Counts   | `r p_table[["1"]]`
+Counts of Simulated Floods | `r sim_table[["1"]]`
 
-Binomial         | Poisson         | Flood simulation
------------------|-----------------|---------------------
-`r p_1_binomial` | `r p_1_poisson` | `r sim_table[["1"]]`
 
 
 

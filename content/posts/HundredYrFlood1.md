@@ -1,7 +1,7 @@
 ---
 title: 100-Year Flood Part 1
 author: Maazin Ansari
-date: 2018-01-11
+date: 2018-01-12
 slug: 100-yr-flood-1
 lang: en
 category: Statistics
@@ -18,7 +18,7 @@ In this first part, I'll show how the hundred year flood is calculated from data
 
 # Parameter Estimation
 
-The data I use here comes from Problem 6 in 
+The data I use here comes from Problem 6[^2] in 
 
 Ross, Sheldon M. “Chapter 7: Parameter Estimation.” *Introduction to Probability and Statistics for Engineers and Scientists*, 5th ed., Elsevier, AP, 2014, pp. 285–286.
 
@@ -92,7 +92,7 @@ hist(floods[["discharge"]], nclass = 25, freq = TRUE, xlab = "discharge", main =
 
 <img src="/static/HundredYrFlood1/hist-1-1.png" title="center" alt="center" style="display: block; margin: auto;" />
 
-The next step is to determine which log-normal distribution this data comes from. In other words, what are the parameters for this distribution.
+The next step is to determine which log-normal distribution this data comes from. In other words, what are the parameters for this distribution?
 
 ## Log-normal distribution
 
@@ -100,9 +100,9 @@ $$f(x) = \frac{1}{x\sigma\sqrt{2π}} \exp\Big(-\frac{(\ln x - \mu)^2}{2 \sigma^2
 
 The log-normal distribution is similar to the normal distribution in that it has two parameters, $\mu$ and $\sigma$. We need to estimate both.
 
-The following sections show how to estimate the parameters for the log-normal distribution, using two different methods.
+The following sections show how to estimate the parameters for the log-normal distribution, using four different methods I found in a paper on log-normal parameter estimation[^1].
 
-## Maximum Likelihood Estimates
+### Maximum Likelihood Estimates
 
 $$
 \hat{\mu}=\frac{\sum \ln x_i}{n} = \overline{\ln x_i}
@@ -120,11 +120,9 @@ $$
 
 ```r
 sigma_hat = (log(floods[["discharge"]]) - mu_hat)^2 %>% mean %>% sqrt
-
-# Method of Moments Estimators ----
 ```
 
-## Method of Moments Estimates
+### Method of Moments Estimates
 
 $$
 \tilde{\sigma}^2= \ln{\sum_{i=1}^nx_i^2} - 2\ln{\sum_{i=1}^nx_i}+\ln(n)
@@ -147,29 +145,41 @@ $$
 mu_tilde = (floods[["discharge"]] %>% sum %>% log) -
             log(nrow(floods)) - 
             (sigma_tilde)^2 / 2
-
-# Serfling Robust Estimators ----
 ```
 
-## Serfling Robust Estimates and Finney Efficient Estimates
+### Serfling Robust Estimates and Finney Efficient Estimates
 
-The next two methods are a little more complex. The code I used to compute them is available on my GitHub. 
+The next two methods are a little more complex.
 
-The serfling estimators 
+The Serfling method computes a sample statistic for all $n\choose k$ permutations of the data, then selects the median as the estimate. 
+
+I made slight modifications to the algorithm for the sake of computation speed. First, I only use 10,000 permutations. Serfling and Ginos limit the number of permutations to 10^7^, but I found even that was too high for R. Second, I did not intentionally use unique permutations. Instead I drew random samples of $k=9$ from the data. I didn't check if all 10,000 were unique. Maybe later I'll make a post investigating how much accuracy my method compromises for speed.
+
+
+```r
+source("serfling.R")
+
+serfling_estimates = serfling_estimate_1(floods[["discharge"]])
+mu_hat_serf = serfling_estimates[[1]]
+sigma_hat_serf = serfling_estimates[[2]]
+```
+
+
+The Finney method uses adjusted versions of the sample mean and variance to estimate $\mu$ and $\sigma$.
+
+
+```r
+source("finney.R")
+
+finney_estimates = finney_estimate_1(floods[["discharge"]])
+mu_hat_finney = finney_estimates[[1]]
+sigma_hat_finney = finney_estimates[[2]]
+```
+
 
 ## Estimated distributions
 
 Since we now have parameters, we have distributions. We can plot the four probability density functions with the histogram to see how well they fit with the data.
-
-
-```r
-hist(floods[["discharge"]], nclass = 25, freq = FALSE, xlab = "discharge", main = "")
-lnorm_plot_v(mu = mu_hat, sigma = sigma_hat, col = "red", add = TRUE)
-lnorm_plot_v(mu = mu_tilde, sigma = sigma_tilde, col = "blue", add = TRUE)
-lnorm_plot_v(mu = mu_hat_serf, sigma = sigma_hat_serf, col = "darkorange", add = TRUE)
-lnorm_plot_v(mu = mu_hat_finney, sigma = sigma_hat_finney, col = "purple", lty = 2, add = TRUE)
-legend("topright", legend = c("MLE", "MOM", "Serfling", "Finney"), lty = c(1,1,1,2), col = c("red", "blue", "darkorange", "purple"), bty = "n")
-```
 
 ![center](/static/HundredYrFlood1/hist-2-1.png)
 
@@ -181,7 +191,7 @@ Note that the Finney efficient estimates are very similar to the maximum likelih
 |MLE      | 8.594057| 0.5116531|
 |MOM      | 8.593508| 0.5118573|
 |Serfling | 8.505484| 0.7142709|
-|Finney   | 8.577885| 0.4281297|
+|Finney   | 8.586239| 0.4270907|
 
 Now we can determine the value $v$ for which $P(D \geq v) = 0.01$ or equivalently $P(D <  v) = 0.99$
 
@@ -206,27 +216,21 @@ v_finney = qlnorm(p = 0.99, meanlog = mu_hat_finney, sdlog = sigma_hat_finney)
 ```
 
 
-```r
-v_table = matrix(c(v_mle, v_mom, v_serf, v_finney), 4)
-dimnames(v_table) = list(c("MLE", "MOM", "Serfling", "Finney"), "v")
-kable(v_table)
-```
-
-
-
 |         |        v|
 |:--------|--------:|
 |MLE      | 17753.54|
 |MOM      | 26033.18|
-|Serfling | 27987.91|
+|Serfling | 28222.70|
 |Finney   | 17752.23|
 
 From the data, we see that in only one year, 1955, was the value exceeded.
 
 <img src="/static/HundredYrFlood1/lnorm-plots-1.png" title="center" alt="center" style="display: block; margin: auto;" />
 
+In the next post, I'll look at how likely this is: to have one such flood in a 37-year period.
+
 # References
 
-Ginos, Brenda Faith, "Parameter Estimation for the Lognormal Distribution" (2009). *All Theses and Dissertations*. 1928. http://scholarsarchive.byu.edu/etd/1928
+[^1]: Ginos, Brenda Faith, "Parameter Estimation for the Lognormal Distribution" (2009). *All Theses and Dissertations*. 1928. http://scholarsarchive.byu.edu/etd/1928
 
-Ross, Sheldon M. “Chapter 7: Parameter Estimation.” *Introduction to Probability and Statistics for Engineers and Scientists*, 5th ed., Elsevier, AP, 2014, pp. 285–286.
+[^2]: Ross, Sheldon M. “Chapter 7: Parameter Estimation.” *Introduction to Probability and Statistics for Engineers and Scientists*, 5th ed., Elsevier, AP, 2014, pp. 285–286.

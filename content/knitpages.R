@@ -1,4 +1,5 @@
-#!/usr/local/bin/Rscript --vanilla
+# original author: Michael Toth 
+# https://github.com/michaeltoth/michaeltoth/blob/master/knitpages.R
 
 # compiles all .Rmd files in _R directory into .md files in blog directory,
 # if the input file is older than the output file.
@@ -7,17 +8,16 @@
 # run this script from your base content directory
 
 library(knitr)
-KnitPost <- function(input, outfile, figsfolder, cachefolder, base.url = "/") {
+KnitPost <- function(input, outfile, figsfolder, base.url = "/") {
     opts_knit$set(base.url = base.url)
     fig.path <- paste0(figsfolder, sub(".Rmd$", "", basename(input)), "/")
-    cache.path <- file.path(cachefolder, sub(".Rmd$", "", basename(input)), "/")
     
-    opts_chunk$set(fig.path = fig.path, cache.path = cache.path, fig.cap = "center")
+    opts_chunk$set(fig.path = fig.path, fig.cap = "center")
     render_markdown()
     knit(input, outfile, envir = parent.frame())
 }
 
-knit_folder <- function(infolder, outfolder = "posts/", figsfolder = "static/", cachefolder =  "_caches", force = F) {
+knit_folder <- function(infolder, outfolder = "posts/", figsfolder = "static/", force = F) {
     for (infile in list.files(infolder, pattern = "*.Rmd", full.names = TRUE, recursive = TRUE)) {
         
         print(infile)
@@ -26,7 +26,7 @@ knit_folder <- function(infolder, outfolder = "posts/", figsfolder = "static/", 
         
         # knit only if the input file is the last one modified
         if (!file.exists(outfile) | file.info(infile)$mtime > file.info(outfile)$mtime) {
-            KnitPost(infile, outfile, figsfolder, cachefolder)
+            KnitPost(infile, outfile, figsfolder)
         }
     }
 }

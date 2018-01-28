@@ -5,11 +5,15 @@ set.seed(20180106)
 floods = read.csv("HundredYrFlood.csv")
 n = nrow(floods)
 
+## ---- break-1
+
 # Maximum Likelihood Estimators ----
 ## ---- mu-hat
 mu_hat = mean(log(floods[["discharge"]]))
 ## ---- sigma-hat
 sigma_hat = (log(floods[["discharge"]]) - mu_hat)^2 %>% mean %>% sqrt
+
+## ---- break-2
 
 # Method of Moments Estimators ----
 ## ---- sigma-tilde
@@ -23,34 +27,27 @@ mu_tilde = (floods[["discharge"]] %>% sum %>% log) -
             log(nrow(floods)) - 
             (sigma_tilde)^2 / 2
 
+## ---- break-3
+
 # Serfling Robust Estimators ----
 ## ---- serfling
-serfling_estimate = function(data, k = 9, reps = 1000) {
-    n = length(data)
+source("serfling.R")
 
-    idx = replicate(reps, sort(sample(n, size = k)))
-    logX = matrix(log(data)[idx], k, reps)
-    mus = apply(logX, 2, mean)
-    sigmas = apply(logX, 2, function(x) mean((x - mean(x))^2))
-    
-    mu_hat_serf = median(mus)
-    sigma_hat_serf = sqrt(median(sigmas))
-    
-    return(list(mu_hat_serf, sigma_hat_serf))
-}
-
-serfling_estimates = serfling_estimate(floods[["discharge"]])
+serfling_estimates = serfling_estimate_1(floods[["discharge"]])
 mu_hat_serf = serfling_estimates[[1]]
 sigma_hat_serf = serfling_estimates[[2]]
+
+## ---- break-4
     
 # Finney Efficient Estimators ----
 ## ---- finney
 source("finney.R")
 
-finney_estimates = finney_estimate(floods[["discharge"]])
+finney_estimates = finney_estimate_1(floods[["discharge"]])
 mu_hat_finney = finney_estimates[[1]]
 sigma_hat_finney = finney_estimates[[2]]
 
+## ---- break-5
 
 # Estimating v ----
 ## ---- v-mle

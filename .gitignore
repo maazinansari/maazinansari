@@ -1,5 +1,6 @@
 # folders
 venv
+virtenv
 plugins
 output
 __pycache__
@@ -16,3 +17,6 @@ __pycache__
 *.html
 *.htm
 *.pdf
+*.Rproj
+*.Rapp.history
+*themes/

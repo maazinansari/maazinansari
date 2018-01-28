@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
+
 AUTHOR = 'Maazin Ansari'
 SITENAME = 'Maazin Ansari'
 SITEURL = ''
@@ -22,52 +23,57 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-# Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),)
+# Theme
+THEME = "notmyidea"
 
 # Social widget
 SOCIAL = (('LinkedIn', 'https://www.linkedin.com/in/maazin-ansari/'),
           ('GitHub', 'https://github.com/maazinansari/'),
           ('Twitter', 'https://twitter.com/MaazinAnsari'),)
 
+SUMMARY_MAX_LENGTH = 30
 DEFAULT_PAGINATION = 5
+
+# Disable authors, categories, tags, and category pages
+DIRECT_TEMPLATES = ['index', 'archives']
+CATEGORY_SAVE_AS = ''
 
 DISPLAY_PAGES_ON_MENU = False
 DISPLAY_CATEGORIES_ON_MENU = False # manually added in MENUITEMS
 
 MENUITEMS = [
-    ('Statistics', '/category/statistics.html'),
-    ('Geography', '/category/geography.html'),
-    ('Archives', 'archives.html'),
-    ('About', '/en/about'),
+#    ('Statistics', '/category/statistics.html'),
+    ('About', '/about'),
+    ('Archives', '/archives'),
+    ('Links', '/links'),
     ]
 
 # This works without i18n_subsites:
-ARTICLE_URL = '{lang}/{slug}'
+ARTICLE_URL = 'posts/{slug}'
 ARTICLE_SAVE_AS = ARTICLE_URL + '/index.html'
-ARTICLE_LANG_URL = ARTICLE_URL
-ARTICLE_LANG_SAVE_AS = ARTICLE_SAVE_AS
+ARTICLE_LANG_URL = ARTICLE_URL + '-{lang}'
+ARTICLE_LANG_SAVE_AS = ARTICLE_LANG_URL + '/index.html'
+
 DRAFT_URL = 'drafts/' + ARTICLE_URL
 DRAFT_SAVE_AS = DRAFT_URL + '/index.html'
 DRAFT_LANG_URL = DRAFT_URL
 DRAFT_LANG_SAVE_AS = DRAFT_SAVE_AS
-PAGE_URL = ARTICLE_URL
-PAGE_SAVE_AS = ARTICLE_SAVE_AS
-PAGE_LANG_URL = ARTICLE_LANG_URL
-PAGE_LANG_SAVE_AS = ARTICLE_LANG_SAVE_AS
+
+PAGE_URL = '{slug}'
+PAGE_SAVE_AS = PAGE_URL + '/index.html'
+PAGE_LANG_URL = PAGE_URL + '-{lang}'
+PAGE_LANG_SAVE_AS = PAGE_LANG_URL + '/index.html'
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+# RELATIVE_URLS = True
 
 # Static
-STATIC_PATHS = ['images', 'static', 'img']
+STATIC_PATHS = ['static', 'img']
 PLUGIN_PATHS = ['plugins/pelican-plugins']
 
 PLUGINS = ["render_math",
 #          "i18n_subsites",
-          ]
+]
 
 # i18n_subsites
 # I18N_SUBSITES = {

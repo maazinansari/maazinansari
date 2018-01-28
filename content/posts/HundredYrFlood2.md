@@ -13,11 +13,6 @@ output: html_document
 
 
 
-```r
-# Here I try to run HundredYrFlood1.Rmd so I can use the objects and variables in this .Rmd
-# I use one R script in both parts.
-source("HundredYrFlood.R")
-```
 
 
 In Part 1, I estimated $v$, the value of the 100-year flood for Blackstone River in Woonsocket, RI. The result using maximum likelihood estimation was 17754 $\text{ft}^3/\text{s}$. What does that mean, and is it accurate? 
@@ -85,25 +80,33 @@ Knowing the log-normal distribution, we can simulate 37 years of flooding to see
 
 ### Count simulation
 
-We can simulate the number of 100-year floods occuring in a 37-year period by simulating binomial and Poisson processes.
+We can simulate the number of 100-year floods occuring in a 37-year period by simulating binomial and Poisson processes 1000 times.
 
 
 ```r
+set.seed(2018)
+N = 1000
 # Binomial
 bFloods = rbinom(n = N, size = 37, prob = 0.01)
+b_table = table(bFloods)/N ; b_table
 ```
 
 ```
-## Error in rbinom(n = N, size = 37, prob = 0.01): object 'N' not found
+## bFloods
+##     0     1     2     3     4 
+## 0.697 0.257 0.038 0.007 0.001
 ```
 
 ```r
 # Poisson
 pFloods = rpois(n = N, lambda = 37*0.01)
+p_table = table(pFloods)/N ; p_table
 ```
 
 ```
-## Error in rpois(n = N, lambda = 37 * 0.01): object 'N' not found
+## pFloods
+##     0     1     2     3     4 
+## 0.696 0.258 0.039 0.006 0.001
 ```
 
 ### Log-normal simulation
@@ -118,46 +121,36 @@ N = 1000
 m = replicate(n = N, expr = rlnorm(n = 37, meanlog = mu_hat, sdlog = sigma_hat)) %>% as.matrix
 ```
 
-Now, let's count how many 100-year floods occur in the 1000 37-year periods.
+Now, let's count how many 100-year floods occured in the 1000 37-year periods. In other words, for each column (simulation), how many rows (years) exceed 17754? Then we'll make a table to see how frequent the counts are.
 
 
 ```r
-sim_counts = apply(X = m, MARGIN = 2, FUN = function(x) sum(x > v_mle))
-sim_table = table(sim_counts)/N
+sim_counts = apply(X = m, # apply to the matrix m
+                   MARGIN = 2, # for each column...
+                   FUN = function(x) sum(x > v_mle)) # ...count the number of years > v_mle
+sim_table = table(sim_counts)/N; sim_table
+```
+
+```
+## sim_counts
+##     0     1     2     3     4 
+## 0.677 0.261 0.050 0.011 0.001
 ```
 
 The following graph compares the expected probabilities and the simulated probabilities. The red and blue bars show the expected and simulated counts, respectively. The yellow bars show the counts using simulated floods. 
 
-
-```
-## Error in table(bFloods): object 'bFloods' not found
-```
-
-```
-## Error in table(pFloods): object 'pFloods' not found
-```
-
-```
-## Error in barplot(df_binom, main = "Binomial", ylim = c(0, 1), beside = TRUE, : object 'df_binom' not found
-```
-
-```
-## Error in barplot(df_pois, main = "Poisson", ylim = c(0, 1), beside = TRUE, : object 'df_pois' not found
-```
+![center](/static/HundredYrFlood2/unnamed-chunk-5-1.png)
 
 In a 37-year period, it's much more likely to have zero 100-year floods than to have one. Still, the probability of exactly one is high, about 26%.
 
+Method                     | Probability of exactly 1 100-year flood in 37 years
+---------------------------|-----------------------------------------------------
+Expected Binomial Counts   | 0.25767
+Simulated Binomial Counts  | 0.257
+Expected Poisson  Counts   | 0.25557
+Simulated Poisson Counts   | 0.258
+Counts of Simulated Floods | 0.261
 
-```r
-# Binomial
-p_1_binomial = dbinom(x = 1, size = 37, prob = 0.01)
-# Poisson
-p_1_poisson = dpois(x = 1, lambda = 37*0.01)
-```
-
-Binomial         | Poisson         | Flood simulation
------------------|-----------------|---------------------
-0.25767 | 0.25557 | 0.269
 
 
 
