@@ -5,7 +5,7 @@
 # if the input file is older than the output file.
 
 # run ./knitpages.R to update all knitr files that need to be updated.
-# run this script from your base content directory
+# run this script from your base content directory (~/maazinansari/content/)
 
 library(knitr)
 KnitPost <- function(input, outfile, figsfolder, base.url = "/") {
