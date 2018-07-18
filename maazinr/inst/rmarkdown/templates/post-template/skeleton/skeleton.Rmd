@@ -10,9 +10,10 @@ summary: Short summary
 output: html_document
 ---
 
-```{r setup, echo = FALSE, message = FALSE}
+```{r setup, echo = FALSE, message = FALSE, fig.show='hide'}
 library(knitr)
 # source("script.R") # no path
+# read_chunk("script.R")
 opts_chunk$set(fig.align = "center")
-opts_knit$set(root.dir = "~/maazinansari/content/", base.url = "../../") # both should be /content/ if originally working in /content/Rmd/[article]
+opts_knit$set(root.dir = "~/maazinansari/content/", base.url = "../../") # both should be /content/ if originally working in /content/R/[article]
 ```
