@@ -1,0 +1,111 @@
+---
+title: Duelling Idiots
+author: Maazin Ansari
+date: 2018-03-05
+slug: idiots-2
+lang: en
+category: Statistics
+tags: R, Probability, DI
+summary: A deadly duel between two idiots. How fair is it?
+output: html_document
+---
+
+```{r setup, echo = FALSE, message = FALSE, fig.show='hide'}
+library(knitr)
+source("02-idiots1.R") # no path
+read_chunk("02-idiots1.R")
+opts_chunk$set(fig.align = "center")
+opts_knit$set(root.dir = "~/maazinansari/content/", base.url = "../../") # both should be /content/ if originally working in /content/R/[article]
+```
+
+The previous post was just a warmup for the rest of the book. This is the first real puzzle. The code for my solutions and the book's original solution are available on [my GitHub](https://github.com/maazinansari/Duelling-Idiots). 
+
+# The Problem
+
+Two individuals, *A* and *B*, will participate in a duel, which has the following setup:
+
+1. A six-chamber gun is loaded with one bullet. The cylinder is spun so the bullet is essentially randomized. 
+2. *A* aims at *B* and pulls the trigger. The gun has a 1/6 chance of firing the bullet. 
+3. If the gun does not fire, *B* takes the gun, spins the cylinder, then pulls the trigger at *A*. 
+Again, the gun has a 1/6 chance of firing.
+4. The duelists take turns spinning the cylinder and pulling the trigger until the bullet is fired.
+
+The problem asks:
+
+1. What is the probability *A* wins the duel?
+2. What is the expected length of the duel? That is, how many trigger pulls / turns will the duel last?
+
+# Analytical Solution
+
+On each of *A*'s turns, There is a 1/6 chance *A* wins and a 5/6 chance the duel continues. *A* can only win on an odd-numbered turn (1, 3, 5, ...), and *B* can only win on an even-numbered turn (2, 4, 6, ...). *A* cannot win if *B* wins first. The probability *A* wins is the total probability of winning on any odd-numbered turn. This can be expressed as the infinite sum
+
+
+
+\begin{align*}
+
+ P(A) = & \frac{1}{6} + && \text{A wins on turn 1}\\
+        & \frac{5}{6}*\frac{5}{6}*\frac{1}{6} + && \text{A misses, B misses, A wins on turn 3}\\
+        & \frac{5}{6}*\frac{5}{6}*\frac{5}{6}*\frac{5}{6}*\frac{1}{6} + 
+        && \text{A misses, B misses, A misses, B misses, A wins on turn 5}\\\
+        & ...
+\end{align*}
+
+
+$$
+ P(A) = \sum_{i=0}^{\infty}
+ \Big(\frac{5}{6}\Big)^{2i}
+ \Big(\frac{1}{6}\Big)
+$$
+
+This is a geometric series, so it must converge. Factoring out $\frac{1}{6}$ gives 
+
+$$
+\begin{align*}
+ P(A) 
+ &= \frac{1}{6}\sum_{i=0}^{\infty} \Big(\frac{5}{6}\Big)^{2i} \\
+ &= \frac{1}{6}\sum_{i=0}^{\infty} \Big(\Big(\frac{5}{6}\Big)^2\Big)^{i} \\
+ &= \frac{1}{6}\sum_{i=0}^{\infty} \Big(\frac{25}{36}\Big)^{i} \\\\
+ &= \frac{1}{6}\frac{1}{1-\frac{25}{36}} = \frac{1}{6}\frac{36}{11} \\
+ P(A) &= \frac{6}{11} \approx 0.54545
+\end{align*}
+$$
+
+So, *A* has a slight advantage over *B* in this duel.
+
+The answer to the second question is a lot easier. This duel is a sequence of independent Bernoulli trials ($p=\frac{1}{6}$). So, the number of trials, or turns, until the bullet is fired (a "success") follows a geometric distribution. The expected value of a geometric distribution is 
+$\frac{1}{p}=6$.
+
+I used the following code to simulate a duel. 
+
+```{r, simulation_1, echo = TRUE, eval = FALSE}
+```
+
+The plots below show the frequencies of a duelist winning on a particular turn. 
+The one on the left is from my simulation. The one on the right is based on the book's simulation. 
+
+```{r, echo = FALSE}
+include_graphics("static/02-idiots/plot1.png")
+```
+
+I get the same results as the book, albeit a bit slower.
+
+```{r, echo = FALSE}
+kable(time_table_1)
+```
+
+# New Rules
+
+To give *B* a more fair chance the rules are modified. On the first turn *A* pulls the trigger once. The cylinder is spun and *B* pulls the trigger twice. *A* pulls three times, *B* pulls four, and so on until there is a winner. By these rules, the duel will last at most 6 turns.
+
+With these new rules, what is the probability *A* wins the duel?
+
+It's harder to solve this problem analytically. This is where simulations become useful. My simulation below simulates a duel 10,000 times and records the winners. 
+
+```{r, simulation_2, eval = FALSE}
+```
+
+The book's solution is a little more abstract, and it runs much faster. Instead of simulating duels and counting wins, it simulates an infinite sum as the total probability *A* wins, and checks for convergence. Still, our answers are similar: *A* has a 52% chance of winning the duel.
+
+```{r, echo = FALSE}
+kable(time_table_2)
+```
