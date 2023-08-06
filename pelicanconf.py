@@ -27,7 +27,9 @@ AUTHOR_FEED_RSS = None
 THEME = "notmyidea"
 
 # Social widget
-SOCIAL = (('GitHub', 'https://github.com/maazinansari/'))
+SOCIAL = (('GitHub', 'https://github.com/maazinansari/'),
+          ('YouTube', 'https://www.youtube.com/channel/UCE8v6FYyQvDszL1SqMd4dNw')
+         )
 
 SUMMARY_MAX_LENGTH = 30
 DEFAULT_PAGINATION = 5
