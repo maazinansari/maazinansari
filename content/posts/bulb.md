@@ -1,0 +1,128 @@
+---
+title: Duelling Idiots - Bulb
+author: Maazin Ansari
+date: 2019-03-05
+slug: bulb
+lang: en
+category: Statistics
+tags: R, Probability, DI
+summary: The glowing bulb problem from "Duelling Idiots and Other Probability Puzzlers"
+output: html_document
+---
+
+
+There are several parts to this problem, culminating with a Markov Chain.
+So, I'll take it slow and only do the first part here.
+
+# The Problem
+
+Imagine there are $N$ switches in series to form a row of switches.
+Then, put $N$ such rows in parallel to form a sheet of $N^2$ switches.
+Finally, put $N$ of these sheets in series, with a lightbulb, to form complicated circuit with
+$N^3$ total switches.
+
+<img src="../../static/03-circuit/schematic.png" title="center" alt="center" style="display: block; margin: auto;" />
+
+The above schematic shows what this circuit looks like when $N=3$.
+
+Each switch is, independently, open or closed, with probability $p$.
+What is the probability $P_1(N,p)$ that the bulb will glow?
+
+If the sheets are connected in parallel,
+what is the probability $P_2(N,p)$ that the bulb will glow?
+
+<img src="../../static/03-circuit/parallel-sheets.png" title="center" alt="center" style="display: block; margin: auto;" />
+
+# Circuit Basics
+
+The bulb will glow if the circuit is closed.
+The circuit is closed if there is at least one unbroken path
+from the negative terminal, through the switches, through the bulb, and to the positive terminal of the battery.
+
+In a row of switches in series, all switches must be closed.
+When the rows are connected in parallel, at least one row in the sheet must be closed,
+but it is not necessary for all rows to be closed. 
+Similarly, when the sheets are connected in parallel, at least one must be closed.
+When the sheets are connected in series, all sheets must be closed.
+
+# Analytical Solution
+
+Now that we know how circuits work, we can start finding the exact solution. Let's start with the individual switches connected in series.
+
+An individual switch has a probability $p$ of being closed.
+Now we connect $N$ independent and identical switches in series.
+The probability the whole series is closed is 
+
+$$
+p_1 \times ... \times p_N =  \color{#377eb8}{p^N}
+$$
+
+And the probability the series is open is just the opposite 
+
+$$1-\color{#377eb8}{p^N}$$
+
+Now we connect $N$ of these series in parallel to make a sheet.
+If zero series are closed, then the sheet is open.
+If more than zero series are closed (i.e. at least one is closed), then the sheet is closed.
+The probability of zero series closed (all series open) is 
+
+$$(1-\color{#377eb8}{p^N})_1 \times ... \times (1-\color{#377eb8}{p^N})_N = \color{#d95f02}{(1-\color{#377eb8}{p^N})^N}$$
+
+This is also the probability of the sheet being open. 
+And the probability the sheet is closed is the opposite 
+
+$$
+1 - \color{#d95f02}{(1-\color{#377eb8}{p^N})^N}
+$$
+
+
+Almost there.
+
+Finally, we connect $N$ of these sheets to make an incredibly complicated circuit.
+If we connect the sheets in series, all $N$ sheets must be closed.
+Like we did in the first step, we can multiply together the probabilities of each sheet being closed 
+
+$$
+\begin{align*}
+ P_1(N,p) 
+ &= (1 - \color{#d95f02}{(1-\color{#377eb8}{p^N})^N})_1 \times ... \times (1 - \color{#d95f02}{(1-\color{#377eb8}{p^N})^N})_N  \\
+ &= \bf{[1 - (1-p^N)^N]^N}
+\end{align*}
+$$
+
+If we connect the sheets in parallel, at least one sheet must be closed.
+This one is trickier, because we need to think with opposites again.
+The probability zero sheets are closed (all sheets open) is 
+
+$$
+\color{#d95f02}{(1-\color{#377eb8}{p^N})^N}_1 \times ... \times \color{#d95f02}{(1-\color{#377eb8}{p^N})^N}_N = (\color{#d95f02}{(1-\color{#377eb8}{p^N})^N})^N
+$$
+
+And the probability more than zero sheets (at least one) are closed is the opposite
+
+$$
+P_2(N,p) = \bf{1 - (1-p^N)^{N^2}}
+$$
+
+# Series vs. Parallel
+
+The two probabilities look similar, but they are very different. 
+The plot below shows how $P_1$ and $P_2$ compare for different values of $N$ and $p$.
+
+<img src="../../static/03-circuit/plot_p_lines.png" title="center" alt="center" style="display: block; margin: auto;" />
+
+Connecting the sheets in parallel gives the bulb a much higher chance of glowing than connecting them in series, for any value of $N$ and $p$.
+
+I added the red and blue lines to show two more scenarios: putting the $N^3$ switches in parallel (red) 
+and putting the $N^3$ switches in series (blue). The difference between series and parallel is more pronounced. It is extremely unlikely for the bulb to glow if the switches are in series, unless $p$ is almost 1. Conversely, the bulb will almost always glow if the switches are in parallel, unless $p$ is almost 0.
+
+
+For a fixed $p$, $P_1$ decreases sharply as $N$ increases. This makes sense because it becomes less likely that all the sheets are closed as we add more sheets to the series. 
+
+<img src="../../static/03-circuit/plot_N_bars.png" title="center" alt="center" style="display: block; margin: auto;" />
+
+
+What I found surprising is that $P_2$ increases first, then decreases after a certain $N$. My interpretation is that when there are more sheets, it is more likely that at least one will be closed. However, each sheet also has $N$ rows in series, and when a row gets longer, it is less likely all switches in the row will be closed. Eventually, the effect of longer series outweighs the effect of more sheets in parallel.
+
+
+Note that $P_1$ and $P_2$ are equal to $p$ when $N=1$, because when $N=1$, there is just one switch in the circuit.
