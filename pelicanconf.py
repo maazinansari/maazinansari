@@ -27,9 +27,7 @@ AUTHOR_FEED_RSS = None
 THEME = "notmyidea"
 
 # Social widget
-SOCIAL = (('LinkedIn', 'https://www.linkedin.com/in/maazin-ansari/'),
-          ('GitHub', 'https://github.com/maazinansari/'),
-          ('Twitter', 'https://twitter.com/MaazinAnsari'),)
+SOCIAL = (('GitHub', 'https://github.com/maazinansari/'))
 
 SUMMARY_MAX_LENGTH = 30
 DEFAULT_PAGINATION = 5
