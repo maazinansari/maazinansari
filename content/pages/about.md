@@ -11,7 +11,7 @@ My name is Maazin Ansari. Welcome to my site!
 
 I made this site to showcase work I've done in courses and on my free time.
 It will contain anything from data analysis to visualizations to maps to tutorials and personal reflections.
-For more information on my professional experience, see [my resume here]({filename}/static/Maazin-Ansari-Resume.pdf).
+For more information on my professional experience, see [my resume here]({filename}/static/Maazin-Ansari-resume2023.pdf).
 
 # Background
 
@@ -20,8 +20,7 @@ That fascination is what led me to study Statistics and Geography/GIS at the Uni
 Shortly after graduating in 2018 I started working as a data analyst at [Mérieux NutriSciences](https://digital-solutions.merieuxnutrisciences.com/en/content/qualmap).
 There, I developed technical and professional skills while continuing to explore my interests in data analysis.
 
-Now I am looking to start the next chapter in my journey in data analysis and statistics.
-In particular, I am looking for opportunities to learn more about data science and operations research.
+In 2019, I joined [Sievo](https://sievo.com/) as a data engineer.
 
 # About this blog
 
@@ -36,6 +35,3 @@ For now, you can find useful files I use to make this site on [my GitHub](https:
 
 I plan on doing a lot with this site. Stay tuned!
 
-# Contact
-
-My social sites are listed at the bottom of the page. You can also email me at maazinansari [at] gmail [dot] com. I'm always open to feedback.
